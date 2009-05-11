@@ -2,6 +2,7 @@ require 'inline'
 require 'singleton'
 
 class EventHook
+  VERSION = '1.0.0'
 
   include Singleton
 
@@ -56,7 +57,6 @@ class EventHook
     builder.c_raw <<-'EOF'
     static void
     event_hook(rb_event_t event, NODE *node, VALUE self, ID mid, VALUE klass) {
-
       if (in_event_hook) return;
       if (mid == ID_ALLOCATOR) return;
 
@@ -85,7 +85,8 @@ class EventHook
 
     builder.c <<-'EOF'
       void add_event_hook() {
-        rb_add_event_hook(event_hook, RUBY_EVENT_CALL | RUBY_EVENT_RETURN | RUBY_EVENT_C_CALL | RUBY_EVENT_C_RETURN);
+        rb_add_event_hook(event_hook, RUBY_EVENT_CALL | RUBY_EVENT_RETURN |
+                                      RUBY_EVENT_C_CALL | RUBY_EVENT_C_RETURN);
       }
     EOF
 
@@ -95,7 +96,5 @@ class EventHook
         event_hook_klass = Qnil;
       }
     EOF
-
   end
-
 end

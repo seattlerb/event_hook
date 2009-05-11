@@ -1,32 +1,40 @@
 = event_hook
 
-* FIX (url)
+* http://rubyforge.org/projects/seattlerb
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Wraps rb_add_event_hook so you can write fast ruby event hook
+processors w/o the speed penalty that comes with set_trace_func (sooo
+sloooow!). Calls back into ruby so you don't have to write C.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Simple subclass design. Override ::process and you're off.
+* Filters on calls/returns to not bog down on extraneous events.
+* Not sure why process needs to be a class method. Will fix eventually.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  class StupidTracer < EventHook
+    self.process(*args)
+      p args
+    end
+  end
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* RubyInlien
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install event_hook
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 Ryan Davis, seattle.rb
+Copyright (c) 2009 Ryan Davis, Seattle.rb
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
