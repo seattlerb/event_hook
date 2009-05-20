@@ -4,5 +4,6 @@ Manifest.txt
 README.txt
 Rakefile
 bin/event_hook
+demo.rb
 lib/event_hook.rb
 test/test_event_hook.rb
