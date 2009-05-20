@@ -6,20 +6,29 @@ class EventHook
 
   include Singleton
 
+  NONE    = 0x00
+  LINE    = 0x01
+  CLASS   = 0x02
+  NND     = 0x04
+  CALL    = 0x08
+  RETURN  = 0x10
+  CCALL   = 0x20
+  CRETURN = 0x40
+  RAISE   = 0x80
+  ALL     = 0xff
+
   ##
   # Ruby events that EventHook notifies you about.
 
   EVENTS = {
-    0x00 => :none,
-    0x01 => :line,
-    0x02 => :class,
-    0x04 => :end,
-    0x08 => :call,
-    0x10 => :return,
-    0x20 => :ccall,
-    0x40 => :creturn,
-    0x80 => :raise,
-    0xff => :all,
+    LINE    => :line,
+    CLASS   => :class,
+    NND     => :end,
+    CALL    => :call,
+    RETURN  => :return,
+    CCALL   => :ccall,
+    CRETURN => :creturn,
+    RAISE   => :raise,
   }
 
   def self.start_hook
@@ -34,11 +43,10 @@ class EventHook
   # Redefine me in a subclass.  +args+ is [event_id, self, method, class].
 
   def self.process(*args)
-    # do nothing
+    raise NotImplementedError, "subclass responsibility"
   end
 
   inline(:C) do |builder|
-
     builder.add_type_converter("rb_event_t", '', '')
     builder.add_type_converter("ID", '', '')
     builder.add_type_converter("NODE *", '', '')
@@ -77,6 +85,7 @@ class EventHook
       argv[1] = self;
       argv[2] = ID2SYM(mid);
       argv[3] = klass;
+
       rb_funcall2(event_hook_klass, method, 4, argv);
 
       in_event_hook--;
