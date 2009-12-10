@@ -70,7 +70,15 @@ class EventHook
 
       in_event_hook++;
 
-      if (NIL_P(event_hook_klass)) event_hook_klass = self;
+      if (NIL_P(event_hook_klass)) {
+        int t = rb_type(self);
+        if (t == T_CLASS || t == T_MODULE) {
+          event_hook_klass = self;
+        } else {
+          event_hook_klass = CLASS_OF(self);
+        }
+      }
+
       if (method == 0) method = rb_intern("process");
 
       if (klass) {
