@@ -1,3 +1,14 @@
+=== 1.1.0 / 2010-09-02
+
+* 2 minor enhancements:
+
+  * Allow event_hook_klass to work with class and metaclass.
+  * Force ~/.ruby_inline cleanup in tests
+
+* 1 bug fix:
+
+  * event_hook won't work on any 1.9 w/o major rework :(
+
 === 1.0.1 / 2009-06-23
 
 * 1 minor enhancement:
