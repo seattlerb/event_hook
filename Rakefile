@@ -13,7 +13,7 @@ Hoe.spec 'event_hook' do
   developer 'Ryan Davis', 'ryand-ruby@zenspider.com'
 
   self.rubyforge_name = 'seattlerb'
-  multiruby_skip << "1.9" << "trunk"
+  multiruby_skip << "1.9" << "trunk" << "2.0"
 end
 
 # vim: syntax=ruby
