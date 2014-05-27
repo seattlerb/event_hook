@@ -4,6 +4,8 @@
 
 == DESCRIPTION:
 
+NOTE: This project is EOL'd since it relies on MRI 1.8 internals.
+
 Wraps rb_add_event_hook so you can write fast ruby event hook
 processors w/o the speed penalty that comes with set_trace_func (sooo
 sloooow!). Calls back into ruby so you don't have to write C.
